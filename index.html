@@ -71,6 +71,16 @@
                             Input
                         </h3>
                         <input type="text" class="input-text form-control" placeholder="Text input" value="EF">
+
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="g" value="option1" checked> g
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="i" value="option2"> i
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="m" value="option3" checked> m
+                        </label>
                     </div>
                 </div>
                 <div class="row">
@@ -97,7 +107,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
         </a>
  -->
         <!--
-        #i=[焼鶏]肉定食&t=焼肉定食.豚肉定食.鶏肉定食.牛肉定食.
+        #i=%5B%E7%84%BC%E9%B6%8F%5D%E8%82%89%E5%AE%9A%E9%A3%9F&t=%E7%84%BC%E8%82%89%E5%AE%9A%E9%A3%9F%0A%E8%B1%9A%E8%82%89%E5%AE%9A%E9%A3%9F%0A%E9%B6%8F%E8%82%89%E5%AE%9A%E9%A3%9F%0A%E7%89%9B%E8%82%89%E5%AE%9A%E9%A3%9F
+        #i=%2F%5C*%5B%5Cs%5CS%5D*%5C*%2F&t=123456789a%0A%2F*%0Aabcdefghijklmnopqrstuvwxyz%0A*%2F%0AABCDEFGHIJKLMNOPQRSTUVWXYZ%0A!%3F%0A
         -->
     </body>
 </html>
@@ -126,6 +137,10 @@ var init = function() {
     $query("#input .input-text").onkeyup = refresh;
     $query("#target .target-text").onkeyup = refresh;
 
+    $query('#g').onchange = refresh;
+    $query('#i').onchange = refresh;
+    $query('#m').onchange = refresh;
+
     if (HASH.i) {
         $query("#input .input-text").value = DUC(HASH.i);
     }
@@ -139,22 +154,39 @@ var init = function() {
 var refresh = function() {
 
     var pattern = $query("#input .input-text").value;
-    var regex = new RegExp(pattern, 'mg');
+    var option = flagToOption($query('#g').checked, $query('#i').checked, $query('#m').checked);
+    var regex = new RegExp(pattern, option);
     var value = $query("#target .target-text").value;
     var output = value.replace(regex, function(str, p1, offset, s) {
         return '<span class="hilight">' + str + '</span>';
     });
 
-    $query("#output .output-text").innerHTML = output;
+    $query("#output .output-text").innerHTML = output.replace(/\n/mg, '<br />');
 
     // save to hash
     window.location.hash = tm.util.QueryString.stringify({
-        i: EUC(pattern),
-        t: EUC(value),
+        i: pattern,
+        t: value,
     });
 
 //    $query("#target .target-text").value = 'hoge\nhoge';
 };
+
+/**
+ * g    全文検索
+ * i    大文字, 小文字チェック
+ * m    行頭, 文末マッチ
+ */
+var flagToOption = function(g, i, m) {
+    var option = '';
+
+    if (g) option += 'g';
+    if (i) option += 'i';
+    if (m) option += 'm';
+
+    return option;
+};
+
 
 </script>
 
