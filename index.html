@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <title>TM Regetor</title>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+
+        <script src="http://rawgithub.com/phi-jp/tmlib.js/2e49310ccc599b51e44049c16042509b6478f398/build/tmlib.js"></script>
+
+        <style>
+        body {
+            padding-top: 50px;
+        }
+
+        #output .output-text {
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            padding: 15px;
+        }
+
+        .hilight {
+            background-color: yellow;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            padding: 2px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">tm tool</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="https://github.com/phi-jp/tm-regetor" target="_blank">Github</a></li>
+                        <li><a href="http://tmlife.net" target="_blank">Blog</a></li>
+                        <li><a href="https://twitter.com/phi_jp" target="_blank">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div>
+                <h1>
+                    TM Regetor
+                </h1>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-lg-12" id="input">
+                        <h3>
+                            Input
+                        </h3>
+                        <input type="text" class="input-text form-control" placeholder="Text input" value="EF">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-sm-6 col-lg-6" id="target">
+                        <h3>Target</h3>
+                        <textarea class="form-control target-text" rows="8">
+123456789a
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+!?
+</textarea>
+                    </div>
+                    <div class="col-6 col-sm-6 col-lg-6" id="output">
+                        <h3>Output</h3>
+                        <div class="output-text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!--         <a href="https://github.com/phi-jp/tm-regetor" target="_blank">
+            <img style="position: fixed; top: 0; right: 0; border: 0; z-index: 9999;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
+        </a>
+ -->
+        <!--
+        #i=[焼鶏]肉定食&t=焼肉定食.豚肉定食.鶏肉定食.牛肉定食.
+        -->
+    </body>
+</html>
+
+
+<script>
+
+var QUERY = tm.util.QueryString.parse(location.search.substr(1));
+var HASH = tm.util.QueryString.parse(location.hash.substr(1));
+var EUC = encodeURIComponent;
+var DUC = decodeURIComponent;
+
+
+// DEBUG: 
+if (QUERY.mode == "debug") { console.log(HASH); }
+
+window.$query = function(q) {
+    return document.querySelector(q);
+};
+
+window.onload = function() {
+    init();
+};
+
+var init = function() {
+    $query("#input .input-text").onkeyup = refresh;
+    $query("#target .target-text").onkeyup = refresh;
+
+    if (HASH.i) {
+        $query("#input .input-text").value = DUC(HASH.i);
+    }
+    if (HASH.t) {
+        $query("#target .target-text").value = DUC(HASH.t);
+    }
+
+    refresh();
+};
+
+var refresh = function() {
+
+    var pattern = $query("#input .input-text").value;
+    var regex = new RegExp(pattern, 'mg');
+    var value = $query("#target .target-text").value;
+    var output = value.replace(regex, function(str, p1, offset, s) {
+        return '<span class="hilight">' + str + '</span>';
+    });
+
+    $query("#output .output-text").innerHTML = output;
+
+    // save to hash
+    window.location.hash = tm.util.QueryString.stringify({
+        i: EUC(pattern),
+        t: EUC(value),
+    });
+
+//    $query("#target .target-text").value = 'hoge\nhoge';
+};
+
+</script>
+
