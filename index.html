@@ -69,7 +69,7 @@
                     <div class="col-12 col-sm-12 col-lg-12" id="input">
                         <h3>
                             <span class="glyphicon glyphicon-chevron-right"></span>
-                            Input
+                            Input <small>正規表現</small>
                         </h3>
                         <input type="text" class="input-text form-control" placeholder="Text input" value="EF">
 
@@ -88,7 +88,7 @@
                     <div class="col-6 col-sm-6 col-lg-6" id="target">
                         <h3>
                             <span class="glyphicon glyphicon-chevron-right"></span>
-                            Target
+                            Target <small>置換対象となる文字列</small>
                         </h3>
                         <textarea class="form-control target-text" rows="8">
 123456789a
@@ -100,7 +100,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
                     <div class="col-6 col-sm-6 col-lg-6" id="output">
                         <h3>
                             <span class="glyphicon glyphicon-chevron-right"></span>
-                            Output
+                            Output <small>マッチング結果</small>
                         </h3>
                         <div class="output-text">
                         </div>
@@ -119,6 +119,13 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
                     </div>
                     <div class="modal-body">
                         TM Regetor は, 正規表現の結果をリアルタイムで反映, 確認できるツールです.<br />
+                        <br />
+                        Input に正規表現を入力すると, Target に Input 内容でマッチ判定をし
+                        結果を Output に表示します.<br />
+                        <br />
+                        また, 入力内容は URL の Hash に保存されるので,
+                        URL をコピペすれば周りの人と共有できます!!<br />
+                        <br />
                         正規表現を学ぶ際などに使ってくださいな♪
                     </div>
                     <div class="modal-footer">
@@ -136,6 +143,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
         <!--
         #i=%5B%E7%84%BC%E9%B6%8F%5D%E8%82%89%E5%AE%9A%E9%A3%9F&t=%E7%84%BC%E8%82%89%E5%AE%9A%E9%A3%9F%0A%E8%B1%9A%E8%82%89%E5%AE%9A%E9%A3%9F%0A%E9%B6%8F%E8%82%89%E5%AE%9A%E9%A3%9F%0A%E7%89%9B%E8%82%89%E5%AE%9A%E9%A3%9F
         #i=%2F%5C*%5B%5Cs%5CS%5D*%5C*%2F&t=123456789a%0A%2F*%0Aabcdefghijklmnopqrstuvwxyz%0A*%2F%0AABCDEFGHIJKLMNOPQRSTUVWXYZ%0A!%3F%0A
+        #i=%2F%5C*%5B%5Cs%5CS%5D*%5C*%2F&t=%0A%2F*%0A%20*%20%E3%83%A1%E3%82%A4%E3%83%B3%E5%87%A6%E7%90%86%E3%81%A0%E3%82%88%E3%83%BC%0A%20*%2F%0Aint%20main()%20%7B%0A%20%20%20%20%0A%7D
         -->
     </body>
 </html>
