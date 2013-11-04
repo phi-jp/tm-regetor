@@ -51,7 +51,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="#about" data-toggle="modal" data-target="#about-modal">About</a></li>
                         <li><a href="https://github.com/phi-jp/tm-regetor" target="_blank">Github</a></li>
                         <li><a href="http://tmlife.net" target="_blank">Blog</a></li>
                         <li><a href="https://twitter.com/phi_jp" target="_blank">Contact</a></li>
@@ -68,6 +68,7 @@
                 <div class="row">
                     <div class="col-12 col-sm-12 col-lg-12" id="input">
                         <h3>
+                            <span class="glyphicon glyphicon-chevron-right"></span>
                             Input
                         </h3>
                         <input type="text" class="input-text form-control" placeholder="Text input" value="EF">
@@ -85,7 +86,10 @@
                 </div>
                 <div class="row">
                     <div class="col-6 col-sm-6 col-lg-6" id="target">
-                        <h3>Target</h3>
+                        <h3>
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            Target
+                        </h3>
                         <textarea class="form-control target-text" rows="8">
 123456789a
 abcdefghijklmnopqrstuvwxyz
@@ -94,13 +98,36 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 </textarea>
                     </div>
                     <div class="col-6 col-sm-6 col-lg-6" id="output">
-                        <h3>Output</h3>
+                        <h3>
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            Output
+                        </h3>
                         <div class="output-text">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-labelledby="about-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="about-modal-label">About</h4>
+                    </div>
+                    <div class="modal-body">
+                        TM Regetor は, 正規表現の結果をリアルタイムで反映, 確認できるツールです.<br />
+                        正規表現を学ぶ際などに使ってくださいな♪
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 <!--         <a href="https://github.com/phi-jp/tm-regetor" target="_blank">
             <img style="position: fixed; top: 0; right: 0; border: 0; z-index: 9999;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
